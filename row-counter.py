@@ -14,17 +14,18 @@ b = []
 e = []
 x = []
 for i in os.listdir(DATA_FOLDER):
-    if i[:3] == "BTC":
+    prefix = i[:3]
+    if prefix == "BTC":
         b.append(i)
-    if i[:3] == "ETH":
+    if prefix == "ETH":
         e.append(i)
-    if i[:3] == "XRP":
+    if prefix == "XRP":
         x.append(i)
         
 df = zip([b, e, x], ["BTC", "ETH", "XRP"])
 
-for ls, name in df:
-    summ = 0
-    for bb in ls:
-        summ+=count_lines(DATA_FOLDER + bb)
-    print(name, len(ls), "days", summ, "rows")
+for files, name in df:
+    rowcount = 0
+    for file in files:
+        rowcount+=count_lines(DATA_FOLDER + file)
+    print(name, len(files), "days", rowcount, "rows")
