@@ -2,3 +2,8 @@
 clean_data/
 raw_data/
 train_val_data/
+scraped_data/
+a.ipynb
+scarpe.ipynb
+scrape ETH.py
+scrape XRP.py
