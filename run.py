@@ -2,6 +2,8 @@ import sys
 import os
 from datetime import  datetime
 
+TEST = "TEST"
+
 def count_lines(filename):
     with open(filename) as fp:
         count = 0
