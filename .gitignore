@@ -7,3 +7,5 @@ a.ipynb
 scarpe.ipynb
 scrape ETH.py
 scrape XRP.py
+scrape BTC.py
+scraped_clean_data/
