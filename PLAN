@@ -3,11 +3,10 @@
 3. Data loaders
 4. CLIP model and architecture
 5. Training
-6. Improving (orderbook data maybe)
 
 TODO:
-1. Projection head for timeseries
-2. DATA visa pasiimt
 3. Timeseries -> Photo benchmark 
     https://librosa.org/doc/main/generated/librosa.feature.chroma_stft.html
 4. Tex template and intro
+5. train test split (75%)
+6. pipeline for inference (mse, classification, )
