@@ -2,6 +2,4 @@
 clean_data/
 raw_data/
 train_val_data/
-scraped_data/
-a.ipynb
-scraped_clean_data/
+.ipynb_checkpoints/
