@@ -8,5 +8,4 @@ TODO:
 3. Timeseries -> Photo benchmark 
     https://librosa.org/doc/main/generated/librosa.feature.chroma_stft.html
 4. Tex template and intro
-5. train test split (75%)
 6. pipeline for inference (mse, classification, )
