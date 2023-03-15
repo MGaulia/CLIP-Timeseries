@@ -7,5 +7,6 @@
 TODO:
 3. Timeseries -> Photo benchmark 
     https://librosa.org/doc/main/generated/librosa.feature.chroma_stft.html
-4. Tex template and intro
-6. pipeline for inference (mse, classification, )
+    FINISH THIS!
+6. pipeline for inference (mse, classification)
+7. get weights for each crypto
