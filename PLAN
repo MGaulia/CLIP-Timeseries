@@ -5,8 +5,6 @@
 5. Training
 
 TODO:
-3. Timeseries -> Photo benchmark 
-    https://librosa.org/doc/main/generated/librosa.feature.chroma_stft.html
-    FINISH THIS!
 6. pipeline for inference (mse, classification)
 7. get weights for each crypto
+8. Train clip model on librosa images < - > text
