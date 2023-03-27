@@ -187,8 +187,8 @@ def cross_entropy(preds, targets, reduction='none'):
     elif reduction == "mean":
         return loss.mean()
     
-def make_train_valid_dfs():
-    dataframe = pd.read_csv(TRAIN_DATA, lineterminator='\n')
+def make_train_valid_dfs(TRAIN_DATA_PATH):
+    dataframe = pd.read_csv(TRAIN_DATA_PATH, lineterminator='\n')
     max_id = dataframe.shape[0]
     timeseries_ids = np.arange(0, max_id)
     np.random.seed(42)
@@ -285,8 +285,8 @@ def find_matches(model, timeseries_embeddings, query, n=9):
 
     return matches
 
-def main():
-    train_df, valid_df = make_train_valid_dfs()
+def main(TRAIN_DATA_PATH, WEIGHTS_PATH):
+    train_df, valid_df = make_train_valid_dfs(TRAIN_DATA_PATH)
     tokenizer = AutoTokenizer.from_pretrained(CFG.text_tokenizer)
     train_loader = build_loaders(train_df, tokenizer, mode="train")
     valid_loader = build_loaders(valid_df, tokenizer, mode="valid")
@@ -316,7 +316,7 @@ def main():
         
         if valid_loss.avg < best_loss:
             best_loss = valid_loss.avg
-            torch.save(model.state_dict(), "best.pt")
+            torch.save(model.state_dict(), WEIGHTS_PATH)
             print("Saved Best Model!")
         
         lr_scheduler.step(valid_loss.avg)
