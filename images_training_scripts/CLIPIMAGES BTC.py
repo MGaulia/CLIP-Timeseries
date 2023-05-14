@@ -16,17 +16,17 @@ import torch.nn.functional as F
 
 class CFG:
     debug = False
-    image_path = "librosa-images"
+    image_path = "/content/drive/MyDrive/BACHELOR'S DATA/librosa-images"
     captions_path = "."
     batch_size = 32
     num_workers = 4
     head_lr = 1e-3
-    image_encoder_lr = 1e-4
-    text_encoder_lr = 1e-5
+    image_encoder_lr = 1e-3
+    text_encoder_lr = 1e-3
     weight_decay = 1e-3
     patience = 1
     factor = 0.8
-    epochs = 20
+    epochs = 100
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     model_name = 'resnet50'
@@ -228,7 +228,7 @@ def cross_entropy(preds, targets, reduction='none'):
         return loss.mean()
     
 def make_train_valid_dfs():
-    dataframe = pd.read_csv(f"{CFG.captions_path}/captions.csv")
+    dataframe = pd.read_csv(f"/content/drive/MyDrive/BACHELOR'S DATA/captions.csv")
     max_id = dataframe["id"].max() + 1 if not CFG.debug else 100
     image_ids = np.arange(0, max_id)
     np.random.seed(42)
