@@ -228,7 +228,7 @@ def cross_entropy(preds, targets, reduction='none'):
         return loss.mean()
     
 def make_train_valid_dfs():
-    dataframe = pd.read_csv(f"eth_captions.csv")
+    dataframe = pd.read_csv(f"/content/drive/MyDrive/BACHELOR'S DATA/eth_captions.csv")
     max_id = dataframe["id"].max() + 1 if not CFG.debug else 100
     image_ids = np.arange(0, max_id)
     np.random.seed(42)
