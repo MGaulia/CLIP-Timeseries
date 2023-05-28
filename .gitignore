@@ -2,7 +2,6 @@
 clean_data/
 raw_data/
 train_val_data/
-train_val_data_50000/
 .ipynb_checkpoints/
 weights/
 librosa-images/
