@@ -263,7 +263,7 @@ def get_ts_embeddings(valid_df, model_path):
             valid_timeseries_embeddings.append(batch["timeseries"])
     return model, torch.cat(valid_timeseries_embeddings)
 
-def find_matches(model, timeseries_embeddings, query, n=9):
+def find_ts_matches(model, timeseries_embeddings, query, n=9):
     tokenizer = AutoTokenizer.from_pretrained(CFG.text_tokenizer)
     encoded_query = tokenizer([query])
     batch = {
