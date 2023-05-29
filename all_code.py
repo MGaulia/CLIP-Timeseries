@@ -1158,3 +1158,194 @@ parse_output('training_logs/BTC_100000_training.txt', 'btc_ts_loss.png')
 parse_output('training_logs/ETH_100000_training.txt', 'eth_ts_loss.png')
 
 parse_output('training_logs/XRP_100000_training.txt', 'xrp_ts_loss.png')
+
+*************************
+**Paveiksliuku spejimai**
+*************************
+
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[87]:
+
+
+# !pip install transformers
+import librosa
+import librosa.display
+import pandas as pd
+import numpy as np
+from tqdm.autonotebook import tqdm
+import matplotlib.pyplot as plt
+
+from CLIPIMAGES import get_image_embeddings, find_image_matches, make_train_valid_dfs
+
+def visualize_series(timeseries, image_name):
+    chroma = librosa.feature.chroma_stft(S=np.abs(librosa.stft(timeseries, n_fft=256)), sr=4000)
+    fig = plt.figure(frameon=False)
+    fig.set_size_inches(1, 1)
+    img = librosa.display.specshow(chroma)
+    fig.savefig(image_name + '.png', bbox_inches='tight', pad_inches=0)
+    plt.close()
+
+def plot_matches(values):
+    emptycount = 0
+    plt.figure(figsize=(20,10))
+    for i in values:
+        if len(np.unique(np.array(i))) == 1:
+            emptycount+=1
+        else:
+            plt.plot(i)
+        
+    print("Out of ", len(values), " matches, ", emptycount, " are empty")
+    
+
+train_df, valid_df = make_train_valid_dfs()
+model, image_embeddings = get_image_embeddings(train_df, "/content/drive/MyDrive/BACHELOR'S DATA/weights/BTC_IMAGES_10000.pt")
+
+matches = find_image_matches(model, 
+             image_embeddings,
+             query="The steady rise in BTC price not only reflects its immense value as a digital asset, but also offers a promising outlook for investors, fueling excitement and confidence in its future trajectory.",
+             image_filenames=train_df['image'].values,
+             n=9)
+
+matches
+
+p = df.iloc[[int(i.split('.')[0]) for i in matches], :].reset_index(drop = True)
+
+toplot = []
+for i in range(len(p)):
+  toplot.append(p.iloc[i, 1:].values)
+
+plot_matches(toplot)
+np.array(toplot).mean(axis = 0).mean()
+
+plt.figure(figsize=(10,7))
+
+plt.plot(np.array(toplot).mean(axis=0))
+plt.savefig("btc_images_pos_pred_mean.png")
+np.array(toplot).mean(axis=0).mean()
+
+matches = find_image_matches(model, 
+             image_embeddings,
+             query="The volatile nature of BTC price can make it challenging for investors to predict and navigate, causing anxiety and uncertainty in the market.",
+             image_filenames=valid_df['image'].values,
+             n=9)
+
+matches
+
+p = df.iloc[[int(i.split('.')[0]) for i in matches], :].reset_index(drop = True)
+
+toplot = []
+for i in range(len(p)):
+  toplot.append(p.iloc[i, 1:].values)
+
+plot_matches(toplot)
+np.array(toplot).mean(axis = 0).mean()
+
+plt.figure(figsize=(10,7))
+
+plt.plot(np.array(toplot).mean(axis=0))
+plt.savefig("btc_images_neg_pred_mean.png")
+np.array(toplot).mean(axis=0).mean()
+
+**************************
+**Laiko eiluciu spejimai**
+**************************
+
+#!/usr/bin/env python
+# coding: utf-8
+
+import pandas as pd
+import numpy as np
+from tqdm.autonotebook import tqdm
+import matplotlib.pyplot as plt
+plt.rcParams.update({'font.size': 20})
+
+from scripts.CLIPTS import get_ts_embeddings, find_ts_matches
+
+def plot_matches(values):
+    emptycount = 0
+    plt.figure(figsize=(20,10))
+    for i in values:
+        if len(np.unique(np.array(i))) == 1:
+            emptycount+=1
+        else:
+            plt.plot(i)
+        
+    print("Out of ", len(values), " matches, ", emptycount, " are empty")
+
+def read(path):
+    return pd.read_csv(path, lineterminator='\n')
+
+def get_model_embeddings(data_path, model_path):
+    df = read(data_path)
+    return  get_ts_embeddings(df, model_path)
+
+
+# # Modified CLIP
+
+# ## BTC
+
+model, ts_embeddings = get_model_embeddings("train_val_data/BTC_val.csv", "weights/BTC_100000.pt")
+
+
+matches = find_ts_matches(model, 
+             ts_embeddings,
+             query="The steady rise in BTC price not only reflects its immense value as a digital asset, but also offers a promising outlook for investors, fueling excitement and confidence in its future trajectory.",
+             n=10)
+plot_matches(ts_embeddings[matches])
+plt.savefig("btc_ts_pred.png")
+
+plt.figure(figsize=(10,7))
+plt.plot(ts_embeddings[matches].mean(axis=0))
+plt.savefig("btc_ts_pred_mean.png")
+ts_embeddings[matches].mean(axis=0).mean()
+
+matches = find_ts_matches(model, 
+             ts_embeddings,
+             query="The volatile nature of BTC price can make it challenging for investors to predict and navigate, causing anxiety and uncertainty in the market.",
+             n=10)
+plot_matches(ts_embeddings[matches])
+plt.savefig("btc_ts_neg_pred.png")
+
+plt.figure(figsize=(10,7))
+
+plt.plot(ts_embeddings[matches].mean(axis=0))
+plt.savefig("btc_ts_neg_pred_mean.png")
+ts_embeddings[matches].mean(axis=0).mean()
+
+
+import os
+
+pos = ['860.png',
+ '2247.png',
+ '333.png',
+ '274.png',
+ '988.png',
+ '1148.png',
+ '1080.png',
+ '779.png',
+ '1359.png',
+ '1895.png']
+
+neg = ['3350.png',
+ '8990.png',
+ '1448.png',
+ '1259.png',
+ '3928.png',
+ '4687.png',
+ '4374.png',
+ '2999.png',
+ '5583.png',
+ '7758.png']
+
+
+for i in pos:
+    print(i)
+    os.system("cp timeseries_images/btc-librosa-images/"+i+" .")
+
+
+for i in neg:
+    print(i)
+    os.system("cp timeseries_images/btc-librosa-images/"+i+" .")
+
