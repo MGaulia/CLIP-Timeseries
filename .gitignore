@@ -1,9 +1,4 @@
 .DS_STORE
-clean_data/
-raw_data/
-train_val_data/
 .ipynb_checkpoints/
-weights/
-librosa-images/
+data/
 Bachelor-thesis.NOSYNC.code-workspace
-timeseries_images
