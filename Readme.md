@@ -1,6 +1,6 @@
 This is the Bachelor's thesis for my studies of Data Science at Vilnius University
 
-[[Paper]](documents/PAPER.pdf) [[Slides]](documents/SLIDES.pdf)
+[[Paper]](documents/Paper.pdf) [[Slides]](documents/Slides.pdf)
 ### Title 
 Learning Transferable Time-Series Models From Natural Language Supervision
 
