@@ -1,6 +1,6 @@
 This is the Bachelor's thesis for my studies of Data Science at Vilnius University
 
-[[Paper]](documents/Paper.pdf) [[Slides]](documents/Slides.pdf)
+[[Paper]](documents/Paper.pdf) [[Slides]](documents/Slides.pdf) [[Data]](https://drive.google.com/drive/folders/1TNBxmF0Ws11ngmasB02pFB36HNk1OLkS?usp=sharing)
 ### Title 
 Learning Transferable Time-Series Models From Natural Language Supervision
 
@@ -9,6 +9,3 @@ This thesis researches relationship between cryptocurrency time series data and 
 
 ### Architecture
 ![architecture](https://github.com/MGaulia/CLIP-Timeseries/assets/39590298/6516f95e-becd-4114-9522-baaa99414121)
-
-### Data link 
-https://drive.google.com/drive/folders/1TNBxmF0Ws11ngmasB02pFB36HNk1OLkS?usp=sharing
